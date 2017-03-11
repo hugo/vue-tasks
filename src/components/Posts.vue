@@ -7,7 +7,7 @@
       <p>{{ err }}</p>
     </div>
 
-    <div v-for="post in posts" class="post card">
+    <div v-if="posts" v-for="post in posts" class="post card">
       <div class="card-block">
         <h2 class="card-title">{{ post.title }}</h2>
         <p v-html="post.body" class="card-text"></p>
@@ -29,22 +29,29 @@ const onSuccess = (next) => (posts) => next(setProp('posts')(posts))
 
 const onError = (next) => (err) => next(setProp('err')(err))
 
+const isOdd = (x) => x % 2 === 1
+
+const oddPosts = posts =>
+  posts
+  .filter(p => isOdd(p.id))
+
 export default {
   name: 'posts',
   data () {
     return {
-      posts: [],
+      posts: null,
       err: null
     }
   },
   beforeRouteEnter (to, from, next) {
     getAllPosts()
+      .then(oddPosts)
       .then(onSuccess(next))
       .catch(onError(next))
   },
   watch: {
     $route () {
-      this.posts = []
+      this.posts = null
       this.err = null
 
       getAllPosts()
