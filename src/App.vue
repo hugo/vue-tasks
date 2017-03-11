@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="container">
     <router-view></router-view>
   </div>
 </template>
@@ -12,8 +12,6 @@ export default {
 
 <style scoped>
   #app {
-    width: 640px;
-    margin-right: auto;
-    margin-left: auto;
+    padding: 1rem;
   }
 </style>

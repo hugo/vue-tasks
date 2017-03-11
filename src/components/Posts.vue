@@ -1,9 +1,11 @@
 <template>
   <div class="posts">
-    <h1 class="header">All posts</h1>
-    <div v-for="post in posts" class="post">
-      <h2 class="title">{{ post.title }}</h2>
-      <p v-html="post.body" class="body"></p>
+    <h1 class="h1">All posts</h1>
+    <div v-for="post in posts" class="post card">
+      <div class="card-block">
+        <h2 class="card-title">{{ post.title }}</h2>
+        <p v-html="post.body" class="card-text"></p>
+      </div>
     </div>
   </div>
 </template>
@@ -43,16 +45,7 @@ export default {
 </script>
 
 <style scoped>
-  .posts {
-    padding-right: 1rem;
-    padding-left: 1rem;
-  }
-
-  .header {
-    font-size: 1.5rem;
-  }
-
-  .title {
-    font-size: 1.25rem;
+  .post {
+    margin-top: 1rem;
   }
 </style>
