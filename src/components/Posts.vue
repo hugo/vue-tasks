@@ -6,6 +6,11 @@
         <h2 class="card-title">{{ post.title }}</h2>
         <p v-html="post.body" class="card-text"></p>
       </div>
+      <div class="card-footer text-muted">
+        <router-link v-bind:to="'/posts/' + post.id" class="card-link">
+          View post
+        </router-link>
+      </div>
     </div>
   </div>
 </template>
