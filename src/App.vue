@@ -10,5 +10,10 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+  #app {
+    width: 640px;
+    margin-right: auto;
+    margin-left: auto;
+  }
 </style>
