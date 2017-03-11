@@ -1,26 +1,50 @@
 <template>
-  <div class="card">
-    <div class="card-block">
-      <h2 class="card-title">{{ post.title }}</h2>
-      <div class="card-text">{{ post.body }}</div>
+  <div>
+    <div v-if="err" class="alert alert-warning">
+      <p>Sorry, something went wrong</p>
+      <p>{{ err }}</p>
     </div>
-    <div class="card-footer text-muted">
-      <router-link to="/">Back to all posts</router-link>
+
+    <div v-if="post" class="card">
+      <div class="card-block">
+        <h2 class="card-title">{{ post.title }}</h2>
+        <div v-html="post.body" class="card-text"></div>
+      </div>
+      <div class="card-footer text-muted">
+        <router-link to="/">Back to all posts</router-link>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-const post = {
-  userId: 1,
-  id: 1,
-  title: 'sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
-  body: 'quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto'
-}
+import { getPost } from '../api'
+import { setProp } from '../shared'
+
+const onSuccess = (next) => (post) => next(setProp('post')(post))
+
+const onError = (next) => (err) => next(setProp('err')(err))
 
 export default {
   data () {
-    return { post }
+    return {
+      post: null,
+      err: null
+    }
+  },
+  beforeRouteEnter (to, from, next) {
+    getPost(to.params.postId)
+      .then(onSuccess(next))
+      .catch(onError(next))
+  },
+  watch: {
+    $route () {
+      this.post = null
+      this.err = null
+      getPost(this.$route.params.postId)
+        .then(post => { this.post = post })
+        .catch(err => { this.err = err })
+    }
   }
 }
 </script>
