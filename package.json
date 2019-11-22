@@ -49,7 +49,7 @@
     "semver": "^6.3.0",
     "url-loader": "^0.5.7",
     "vue-loader": "^15.4.2",
-    "vue-style-loader": "^2.0.0",
+    "vue-style-loader": "^4.1.2",
     "vue-template-compiler": "^2.2.1",
     "webpack": "^2.2.1",
     "webpack-bundle-analyzer": "^3.6.0",
